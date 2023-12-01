@@ -2,13 +2,16 @@ import React from "react";
 import {
   Box,
   Button,
+  ButtonGroup,
   Card,
   CardContent,
   TextField,
   Typography,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Question, Quiz } from "../store/quiz";
 
 import { getRandomIntId } from "../util";
@@ -93,14 +96,25 @@ const QuizEditor: React.FC<QuizEditorProps> = ({ quiz, setQuiz, onSave }) => {
         </CardContent>
       </Card>
       <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={onSave}
-          startIcon={<SaveIcon />}
-        >
-          Save Quiz
-        </Button>
+        <ButtonGroup variant="contained" color="primary" sx={{ marginTop: 2 }}>
+          <Link to="/">
+            <Button
+              variant="contained"
+              color="error"
+              startIcon={<DeleteIcon />}
+            >
+              Cancel
+            </Button>
+          </Link>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={onSave}
+            startIcon={<SaveIcon />}
+          >
+            Save Quiz
+          </Button>
+        </ButtonGroup>
       </Box>
     </Box>
   );

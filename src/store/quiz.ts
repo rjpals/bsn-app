@@ -50,10 +50,14 @@ export const quizSlice = createSlice({
         modified: getFormattedDate(),
       };
     },
+    deleteQuiz: (state, action: PayloadAction<number>) => {
+      const index = state.quizzes.findIndex((quiz) => quiz.id === action.payload);
+      state.quizzes.splice(index, 1);
+    },
   },
 })
 
-export const { createQuiz, updateQuiz } = quizSlice.actions
+export const { createQuiz, updateQuiz, deleteQuiz } = quizSlice.actions
 
 export const selectQuizzes = (state: RootState) => state.quiz.quizzes
 
