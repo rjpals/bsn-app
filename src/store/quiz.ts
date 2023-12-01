@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '.'
 
 import exampleQuiz from '../example.json';
+import { getFormattedDate } from '../util';
 
 export type Answer = {
   id: number;
@@ -44,8 +45,11 @@ export const quizSlice = createSlice({
     },
     updateQuiz: (state, action: PayloadAction<Quiz>) => {
       const index = state.quizzes.findIndex((quiz) => quiz.id === action.payload.id);
-      state.quizzes[index] = action.payload;
-    }
+      state.quizzes[index] = {
+        ...action.payload,
+        modified: getFormattedDate(),
+      };
+    },
   },
 })
 

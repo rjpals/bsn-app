@@ -29,7 +29,6 @@ const QuizzesList = () => {
           </CardContent>
         </Card>
       ))}
-      {/* TODO: Add a new quiz creator */}
       <Link to="/quiz/new">
         <Button variant="contained" color="primary" sx={{ marginTop: 2 }}>
           Add New Quiz

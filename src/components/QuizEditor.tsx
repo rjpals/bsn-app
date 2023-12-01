@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import {
   Box,
   Button,
@@ -10,31 +9,17 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
-import { Question } from "../store/quiz";
-import { useAppSelector, useAppDispatch } from "../hooks";
-import { updateQuiz, selectQuizzes } from "../store/quiz";
+import { Question, Quiz } from "../store/quiz";
 
 import { getRandomIntId } from "../util";
 import QuestionEditor from "./QuestionEditor";
 
-const QuizEditor = () => {
-  const { id } = useParams();
-  const dispatch = useAppDispatch();
-  const quizzes = useAppSelector(selectQuizzes);
-  const originalQuiz = id && quizzes.find((quiz) => quiz.id === parseInt(id));
-  const [quiz, setQuiz] = useState(originalQuiz);
-
-  useEffect(() => {
-    setQuiz(originalQuiz);
-  }, [id, originalQuiz]);
-
-  // TODO make this better
-  if (!quiz) return <div>Quiz not found</div>;
-
-  const handleSave = () => {
-    dispatch(updateQuiz(quiz));
-  };
-
+type QuizEditorProps = {
+  quiz: Quiz;
+  setQuiz: (quiz: Quiz) => void;
+  onSave: () => void;
+};
+const QuizEditor: React.FC<QuizEditorProps> = ({ quiz, setQuiz, onSave }) => {
   const handleQuestionChange = (updatedQuestion: Question) => {
     const updatedQuestions = [...quiz.questions_answers];
     const questionIndex = updatedQuestions.findIndex(
@@ -111,7 +96,7 @@ const QuizEditor = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleSave}
+          onClick={onSave}
           startIcon={<SaveIcon />}
         >
           Save Quiz
