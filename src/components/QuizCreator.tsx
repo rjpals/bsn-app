@@ -26,12 +26,7 @@ const QuizCreator = () => {
     navigate("/");
   };
 
-  return (
-    <div>
-      <h2>Create a New Quiz</h2>
-      <QuizEditor quiz={newQuiz} setQuiz={setNewQuiz} onSave={handleSave} />
-    </div>
-  );
+  return <QuizEditor quiz={newQuiz} setQuiz={setNewQuiz} onSave={handleSave} />;
 };
 
 export default QuizCreator;
