@@ -5,6 +5,7 @@ import { updateQuiz, selectQuizzes } from "../store/quiz";
 import { useNavigate } from "react-router-dom";
 
 import QuizEditor from "./QuizEditor";
+import QuizNotFound from "./NotFound";
 
 const QuizEditorPage = () => {
   const { id } = useParams();
@@ -18,8 +19,7 @@ const QuizEditorPage = () => {
     setQuiz(originalQuiz);
   }, [id, originalQuiz]);
 
-  // TODO make this better
-  if (!quiz) return <div>Quiz not found</div>;
+  if (!quiz) return <QuizNotFound />;
 
   const handleSave = () => {
     dispatch(updateQuiz(quiz));
