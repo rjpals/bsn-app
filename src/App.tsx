@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { useAppSelector, useAppDispatch } from "./hooks";
 
 function App() {
