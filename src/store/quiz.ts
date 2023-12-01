@@ -3,13 +3,13 @@ import type { RootState } from '.'
 
 import exampleQuiz from '../example.json';
 
-type Answer = {
+export type Answer = {
   id: number;
   is_true: boolean;
   text: string;
 };
 
-type Question = {
+export type Question = {
   answer_id: number | null;
   answers: Answer[];
   feedback_false: string;
@@ -18,7 +18,7 @@ type Question = {
   text: string;
 };
 
-type Quiz = {
+export type Quiz = {
   created: string;
   description: string;
   id: number;

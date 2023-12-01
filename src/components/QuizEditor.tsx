@@ -8,8 +8,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Question } from "../store/quiz";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { updateQuiz, selectQuizzes } from "../store/quiz";
+
+import QuestionEditor from "./QuestionEditor";
 
 const QuizEditor = () => {
   const { id } = useParams();
@@ -29,12 +32,21 @@ const QuizEditor = () => {
     dispatch(updateQuiz(quiz));
   };
 
+  const handleQuestionChange = (updatedQuestion: Question) => {
+    const updatedQuestions = [...quiz.questions_answers];
+    const questionIndex = updatedQuestions.findIndex(
+      (q) => q.id === updatedQuestion.id
+    );
+    updatedQuestions[questionIndex] = updatedQuestion;
+    setQuiz({ ...quiz, questions_answers: updatedQuestions });
+  };
+
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
         Quiz Editor
       </Typography>
-      <Card sx={{ marginBottom: 2 }}>
+      <Card elevation={5} sx={{ marginBottom: 2 }}>
         <CardContent>
           <TextField
             label="Title"
@@ -60,12 +72,18 @@ const QuizEditor = () => {
             value={quiz.url}
             onChange={(e) => setQuiz({ ...quiz, url: e.target.value })}
           />
+          {quiz.questions_answers.map((question) => (
+            <QuestionEditor
+              key={question.id}
+              question={question}
+              onQuestionChange={handleQuestionChange}
+            />
+          ))}
           <Button variant="contained" color="primary" onClick={handleSave}>
             Save Quiz
           </Button>
         </CardContent>
       </Card>
-      {/* TODO: add question & answer editors */}
     </Box>
   );
 };
