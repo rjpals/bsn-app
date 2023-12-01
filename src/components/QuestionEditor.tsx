@@ -34,6 +34,11 @@ const QuestionEditor: React.FC<QuizEditorProps> = ({
     onQuestionChange({ ...question, answers: updatedAnswers });
   };
 
+  const handleAnswerDelete = (id: number) => {
+    const updatedAnswers = question.answers.filter((a) => a.id !== id);
+    onQuestionChange({ ...question, answers: updatedAnswers });
+  };
+
   return (
     <Card elevation={5} sx={{ marginBottom: 2 }}>
       <CardContent>
@@ -52,6 +57,7 @@ const QuestionEditor: React.FC<QuizEditorProps> = ({
             <AnswerEditor
               key={answer.id}
               answer={answer}
+              onDelete={handleAnswerDelete}
               onAnswerChange={handleAnswerChange}
             />
           ))}

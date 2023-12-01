@@ -1,14 +1,24 @@
 import React from "react";
-import { FormControlLabel, ListItem, Radio, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  ListItem,
+  Radio,
+  TextField,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Answer } from "../store/quiz";
 
 type AnswerEditorProps = {
   answer: Answer;
   onAnswerChange: (updatedAnswer: Answer) => void;
+  onDelete: (id: number) => void;
 };
 const AnswerEditor: React.FC<AnswerEditorProps> = ({
   answer,
   onAnswerChange,
+  onDelete,
 }) => {
   return (
     <ListItem>
@@ -22,16 +32,23 @@ const AnswerEditor: React.FC<AnswerEditorProps> = ({
           />
         }
         label={
-          <TextField
-            label="Answer Text"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={answer.text}
-            onChange={(e) =>
-              onAnswerChange({ ...answer, text: e.target.value })
-            }
-          />
+          <Box display="flex">
+            <TextField
+              label="Answer Text"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              value={answer.text}
+              onChange={(e) =>
+                onAnswerChange({ ...answer, text: e.target.value })
+              }
+            />
+            <Button
+              onClick={() => onDelete(answer.id)}
+              startIcon={<DeleteIcon />}
+              color="error"
+            />
+          </Box>
         }
       />
     </ListItem>
