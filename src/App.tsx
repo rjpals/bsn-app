@@ -1,15 +1,22 @@
 import React from "react";
-import { useAppSelector, useAppDispatch } from "./hooks";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Container, CssBaseline } from "@mui/material";
+import QuizEditor from "./components/QuizEditor";
+import QuizzesList from "./components/QuizList";
 
 function App() {
-  const quizes = useAppSelector((state) => state.quiz.quizes);
-  const dispatch = useAppDispatch();
-
-  const formattedQuiz = JSON.stringify(quizes[0], null, 2);
   return (
     <>
-      <div className="App">Hell world</div>
-      <code>{formattedQuiz}</code>
+      <Router>
+        <CssBaseline />
+        <Container>
+          <Routes>
+            <Route path="/" element={<QuizzesList />} />
+            <Route path="/quiz" />
+            <Route path="/quiz/:id" element={<QuizEditor />} />
+          </Routes>
+        </Container>
+      </Router>
     </>
   );
 }

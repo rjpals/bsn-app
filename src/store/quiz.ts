@@ -30,23 +30,27 @@ type Quiz = {
 };
 
 interface QuizState {
-  quizes: Quiz[];
+  quizzes: Quiz[];
 }
 
-const initialState: QuizState = { quizes: [exampleQuiz] }
+const initialState: QuizState = { quizzes: [exampleQuiz] }
 
 export const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
     createQuiz: (state, action: PayloadAction<Quiz>) => {
-      state.quizes.push(action.payload);
+      state.quizzes.push(action.payload);
+    },
+    updateQuiz: (state, action: PayloadAction<Quiz>) => {
+      const index = state.quizzes.findIndex((quiz) => quiz.id === action.payload.id);
+      state.quizzes[index] = action.payload;
     }
   },
 })
 
-export const { createQuiz } = quizSlice.actions
+export const { createQuiz, updateQuiz } = quizSlice.actions
 
-export const selectQuizes = (state: RootState) => state.quiz.quizes
+export const selectQuizzes = (state: RootState) => state.quiz.quizzes
 
 export default quizSlice.reducer
