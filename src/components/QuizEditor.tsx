@@ -8,10 +8,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import SaveIcon from "@mui/icons-material/Save";
 import { Question } from "../store/quiz";
 import { useAppSelector, useAppDispatch } from "../hooks";
 import { updateQuiz, selectQuizzes } from "../store/quiz";
 
+import { getRandomIntId } from "../util";
 import QuestionEditor from "./QuestionEditor";
 
 const QuizEditor = () => {
@@ -39,6 +42,21 @@ const QuizEditor = () => {
     );
     updatedQuestions[questionIndex] = updatedQuestion;
     setQuiz({ ...quiz, questions_answers: updatedQuestions });
+  };
+
+  const handleAddQuestion = () => {
+    const newQuestion: Question = {
+      id: getRandomIntId(),
+      answer_id: null,
+      text: "question text",
+      answers: [],
+      feedback_true: "",
+      feedback_false: "",
+    };
+    setQuiz({
+      ...quiz,
+      questions_answers: [...quiz.questions_answers, newQuestion],
+    });
   };
 
   return (
@@ -79,11 +97,26 @@ const QuizEditor = () => {
               onQuestionChange={handleQuestionChange}
             />
           ))}
-          <Button variant="contained" color="primary" onClick={handleSave}>
-            Save Quiz
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddQuestion}
+            startIcon={<AddIcon />}
+          >
+            Add New Question
           </Button>
         </CardContent>
       </Card>
+      <Box>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          startIcon={<SaveIcon />}
+        >
+          Save Quiz
+        </Button>
+      </Box>
     </Box>
   );
 };
