@@ -47,6 +47,11 @@ const QuizEditor: React.FC<QuizEditorProps> = ({ quiz, setQuiz, onSave }) => {
     });
   };
 
+  const handleQuestionDelete = (id: number) => {
+    const updatedQuestions = quiz.questions_answers.filter((q) => q.id !== id);
+    setQuiz({ ...quiz, questions_answers: updatedQuestions });
+  };
+
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
@@ -83,6 +88,7 @@ const QuizEditor: React.FC<QuizEditorProps> = ({ quiz, setQuiz, onSave }) => {
               key={question.id}
               question={question}
               onQuestionChange={handleQuestionChange}
+              onDelete={handleQuestionDelete}
             />
           ))}
           <Button
